@@ -17,44 +17,106 @@ align-items:center;
 font-family:Arial,sans-serif;
 overflow:hidden;
 color:white;
+touch-action:manipulation;
 }
 
-/* App-style card */
+/* Floating */
+@keyframes floatCard{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-6px);}
+100%{transform:translateY(0px);}
+}
+
+/* Bounce */
+@keyframes bounce{
+0%{transform:scale(1);}
+30%{transform:scale(1.12);}
+60%{transform:scale(0.95);}
+100%{transform:scale(1.05);}
+}
+
+/* Sparkle */
+@keyframes sparkle{
+0%{box-shadow:0 0 6px rgba(255,77,166,0.4);}
+50%{box-shadow:0 0 12px rgba(255,153,204,0.5);}
+100%{box-shadow:0 0 6px rgba(255,77,166,0.4);}
+}
+
+/* Camera Zoom */
+@keyframes cameraZoom{
+0%{transform:scale(1);}
+100%{transform:scale(1.15);}
+}
+
+.zoomEffect{
+animation:cameraZoom 1.5s ease forwards;
+}
+
+/* Card */
 .app{
-width:90%;
-max-width:380px;
-min-height:300px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
+width:92%;
+max-width:360px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(12px);
 border-radius:25px;
-padding:20px;
-box-shadow:0 0 40px rgba(255,105,180,0.6);
+padding:22px 18px;
 text-align:center;
 position:relative;
+animation:floatCard 4s ease-in-out infinite;
+border:1px solid rgba(255,105,180,0.25);
+box-shadow:0 0 12px rgba(255,105,180,0.25);
 }
 
+/* Soft Glow Border */
+.app::before{
+content:"";
+position:absolute;
+inset:-2px;
+border-radius:25px;
+background:linear-gradient(45deg,#ff4da6,#ff99cc,#ff4da6);
+z-index:-1;
+filter:blur(4px);
+opacity:0.4;
+}
 
-/* Glowing name */
 h1{
+font-size:28px;
 color:#ff99cc;
-text-shadow:0 0 10px #ff4da6,0 0 20px #ff1a8c;
+text-shadow:0 0 6px rgba(255,77,166,0.6);
 }
 
 /* Buttons */
-button{
-padding:14px 22px;
-border:none;
-border-radius:25px;
-margin:12px;
-font-size:16px;
-cursor:pointer;
-width:120px;
+.buttons{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:15px;
+margin-top:20px;
+position:relative;
+flex-wrap:wrap;
 }
 
-#yes{background:#ff4da6;color:white;}
+button{
+padding:14px 20px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s ease;
+}
+
+#yes{
+background:#ff4da6;
+color:white;
+width:130px;
+transform:scale(1.05);
+animation:sparkle 2.5s infinite alternate;
+}
+
 #no{
 background:#999;
-position:relative;   /* IMPORTANT */
+width:110px;
+position:relative;
 }
 
 /* Popup */
@@ -67,14 +129,15 @@ display:none;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-font-size:24px;
+font-size:22px;
+text-align:center;
 }
 
-/* Photo reveal */
+/* Photo */
 #photo{
 width:200px;
 border-radius:20px;
-box-shadow:0 0 40px #fff;
+box-shadow:0 0 20px rgba(255,255,255,0.7);
 opacity:0;
 transform:scale(0);
 transition:1.5s;
@@ -91,9 +154,9 @@ width:2px;height:2px;
 background:white;
 animation:twinkle 2s infinite alternate;
 }
-@keyframes twinkle{from{opacity:.2;}to{opacity:1;}}
+@keyframes twinkle{from{opacity:.3;}to{opacity:1;}}
 
-/* Shooting star */
+/* Shooting Star */
 .shoot{
 position:absolute;
 width:2px;height:80px;
@@ -121,7 +184,7 @@ to{transform:translateY(110vh);}
 .confetti{
 position:absolute;
 font-size:20px;
-animation:explode 1s ease forwards;
+animation:explode 2s ease forwards;
 }
 @keyframes explode{
 0%{transform:scale(0);}
@@ -131,7 +194,6 @@ animation:explode 1s ease forwards;
 </head>
 
 <body>
-
 
 <div id="startScreen" style="
 position:fixed;top:0;left:0;width:100%;height:100%;
@@ -152,19 +214,21 @@ Tap To Open My Princess 💖
 <audio id="heartbeat" loop>
 <source src="heartbeat.mp3" type="audio/mpeg">
 </audio>
+
 <audio id="proposal">
 <source src="proposal.mp3" type="audio/mpeg">
 </audio>
 
-
+<div id="mainScene">
 <div class="app">
 <h1>Mahima 💖</h1>
-<p id="letter"></p>
-<div class="buttons">
-    <button id="yes">YES 💕</button>
-    <button id="no">NO 🙈</button>
-</div>
+<p>Hey Princess Mahima 🌸, Will you be My Valentine Princess? 💕</p>
 
+<div class="buttons">
+<button id="yes">YES 💕</button>
+<button id="no">NO 🙈</button>
+</div>
+</div>
 </div>
 
 <div id="popup">
@@ -184,7 +248,7 @@ s.style.left=Math.random()*100+"vw";
 document.body.appendChild(s);
 }
 
-// Shooting stars
+// Shooting Stars
 setInterval(()=>{
 let s=document.createElement("div");
 s.className="shoot";
@@ -194,7 +258,7 @@ document.body.appendChild(s);
 setTimeout(()=>s.remove(),1000);
 },5000);
 
-// Falling petals
+// Petals
 setInterval(()=>{
 let p=document.createElement("div");
 p.className="petal";
@@ -202,25 +266,13 @@ p.innerHTML="🌹";
 p.style.left=Math.random()*100+"vw";
 document.body.appendChild(p);
 setTimeout(()=>p.remove(),6000);
-},800);
+},1200);
 
-// Typing letter
-let msg="Hey Princess Mahima 🌸, Will you be My Valentine Princess? 💕";
-let i=0;
-function type(){
-if(i<msg.length){
-document.getElementById("letter").innerHTML+=msg.charAt(i);
-i++;setTimeout(type,40);
-}}
-type();
-
-// Music fade
+// Music
 const romantic=document.getElementById("romantic");
 const noMusic=document.getElementById("noMusic");
 const heartbeat=document.getElementById("heartbeat");
 const proposal=document.getElementById("proposal");
-proposal.volume = 1;
-
 const noBtn=document.getElementById("no");
 const start=document.getElementById("startScreen");
 
@@ -236,73 +288,72 @@ fadeIn(heartbeat);
 start.style.display="none";
 }
 
-// YES
+// YES with Cinematic Zoom
 document.getElementById("yes").onclick=function(){
 
-// Stop all other music
+if(navigator.vibrate){navigator.vibrate([200,100,200]);}
+
+this.style.animation="bounce 0.6s ease";
+
+// CAMERA ZOOM
+document.getElementById("mainScene").classList.add("zoomEffect");
+
 fadeOut(romantic);
 fadeOut(heartbeat);
 noMusic.pause();
-noMusic.currentTime = 0;
-
-// Play proposal song with fade in
 fadeIn(proposal);
 
-// Disable NO button
-noBtn.onmouseover = null;
-noBtn.style.display = "none";
-
-// Show popup
-document.getElementById("popup").style.display="flex";
+noBtn.style.display="none";
 
 setTimeout(()=>{
+document.getElementById("popup").style.display="flex";
 document.getElementById("photo").classList.add("showPhoto");
-},500);
-
 createCelebration();
+},1200);
 }
 
-
-
-// NO
+// NO SAFE MOVE
 function moveNoButton(){
-
-if(document.getElementById("popup").style.display==="flex") return;
-
 fadeOut(romantic);
 fadeIn(noMusic);
 
-let maxX = window.innerWidth - noBtn.offsetWidth - 20;
-let maxY = window.innerHeight - noBtn.offsetHeight - 20;
+noBtn.style.position="absolute";
 
-let randomX = Math.random() * maxX;
-let randomY = Math.random() * maxY;
+let padding=20;
+let maxX=window.innerWidth-noBtn.offsetWidth-padding;
+let maxY=window.innerHeight-noBtn.offsetHeight-padding;
 
-noBtn.style.left = randomX + "px";
-noBtn.style.top = randomY + "px";
+let randomX=Math.max(padding,Math.random()*maxX);
+let randomY=Math.max(padding,Math.random()*maxY);
+
+noBtn.style.left=randomX+"px";
+noBtn.style.top=randomY+"px";
 }
 
-// Works on desktop
 noBtn.addEventListener("mouseover", moveNoButton);
-
-// Works on mobile
 noBtn.addEventListener("touchstart", function(e){
 e.preventDefault();
 moveNoButton();
 });
 
-
-// Fireworks + Confetti
+// Confetti
 function createCelebration(){
-for(let i=0;i<80;i++){
+let duration=4000;
+let end=Date.now()+duration;
+
+let interval=setInterval(function(){
+if(Date.now()>end){clearInterval(interval);return;}
+
 let c=document.createElement("div");
 c.className="confetti";
 c.innerHTML=Math.random()>0.5?"🎆":"🎉";
 c.style.top=Math.random()*100+"vh";
 c.style.left=Math.random()*100+"vw";
 document.body.appendChild(c);
-setTimeout(()=>c.remove(),1000);
-}}
+
+setTimeout(()=>c.remove(),2000);
+},100);
+}
 </script>
 
 </body>
