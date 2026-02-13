@@ -23,14 +23,16 @@ color:white;
 .app{
 width:90%;
 max-width:380px;
+min-height:300px;
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(15px);
-border-radius:30px;
-padding:25px;
+border-radius:25px;
+padding:20px;
 box-shadow:0 0 40px rgba(255,105,180,0.6);
 text-align:center;
 position:relative;
 }
+
 
 /* Glowing name */
 h1{
@@ -40,15 +42,20 @@ text-shadow:0 0 10px #ff4da6,0 0 20px #ff1a8c;
 
 /* Buttons */
 button{
-padding:12px 20px;
+padding:14px 22px;
 border:none;
-border-radius:20px;
-margin:10px;
+border-radius:25px;
+margin:12px;
 font-size:16px;
 cursor:pointer;
+width:120px;
 }
+
 #yes{background:#ff4da6;color:white;}
-#no{background:#999;position:absolute;}
+#no{
+background:#999;
+position:relative;   /* IMPORTANT */
+}
 
 /* Popup */
 #popup{
@@ -125,6 +132,7 @@ animation:explode 1s ease forwards;
 
 <body>
 
+
 <div id="startScreen" style="
 position:fixed;top:0;left:0;width:100%;height:100%;
 background:black;display:flex;justify-content:center;
@@ -152,8 +160,11 @@ Tap To Open My Princess 💖
 <div class="app">
 <h1>Mahima 💖</h1>
 <p id="letter"></p>
-<button id="yes">YES 💕</button>
-<button id="no">NO 🙈</button>
+<div class="buttons">
+    <button id="yes">YES 💕</button>
+    <button id="no">NO 🙈</button>
+</div>
+
 </div>
 
 <div id="popup">
@@ -254,12 +265,32 @@ createCelebration();
 
 
 // NO
-noBtn.onmouseover=function(){
+function moveNoButton(){
+
+if(document.getElementById("popup").style.display==="flex") return;
+
 fadeOut(romantic);
 fadeIn(noMusic);
-noBtn.style.top=Math.random()*window.innerHeight+"px";
-noBtn.style.left=Math.random()*window.innerWidth+"px";
+
+let maxX = window.innerWidth - noBtn.offsetWidth - 20;
+let maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+let randomX = Math.random() * maxX;
+let randomY = Math.random() * maxY;
+
+noBtn.style.left = randomX + "px";
+noBtn.style.top = randomY + "px";
 }
+
+// Works on desktop
+noBtn.addEventListener("mouseover", moveNoButton);
+
+// Works on mobile
+noBtn.addEventListener("touchstart", function(e){
+e.preventDefault();
+moveNoButton();
+});
+
 
 // Fireworks + Confetti
 function createCelebration(){
