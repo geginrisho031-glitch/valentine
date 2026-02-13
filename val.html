@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Mahima 💖</title>
+
+<style>
+body {
+    margin:0;
+    padding:0;
+    height:100vh;
+    background: radial-gradient(circle at top, #1a1a40, #000);
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: 'Segoe UI', sans-serif;
+    color:white;
+    text-align:center;
+}
+
+/* Stars */
+.star {
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle {
+    from { opacity:0.2; }
+    to { opacity:1; }
+}
+
+/* Card */
+.container {
+    background: rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:20px;
+    backdrop-filter: blur(10px);
+    box-shadow:0 0 30px rgba(255,105,180,0.5);
+}
+
+/* Glowing Name */
+h1 {
+    font-size:36px;
+    color:#ff99cc;
+    text-shadow: 0 0 10px #ff4da6,
+                 0 0 20px #ff4da6,
+                 0 0 40px #ff1a8c;
+}
+
+/* Love letter text */
+#letter {
+    font-size:18px;
+    margin:20px 0;
+    min-height:60px;
+}
+
+/* Buttons */
+button {
+    padding:10px 25px;
+    border:none;
+    border-radius:25px;
+    margin:10px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yes {
+    background:#ff4da6;
+    color:white;
+}
+#yes:hover { transform:scale(1.1); }
+
+#no {
+    background:#999;
+    position:absolute;
+}
+
+#popup {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,0,102,0.95);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    font-size:26px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="romantic" src="romantic.mp3" loop></audio>
+<audio id="noMusic" src="no.mp3"></audio>
+
+<div class="container">
+    <h1>Mahima 💖</h1>
+    <div id="letter"></div>
+    <button id="yes">YES 💕</button>
+    <button id="no">NO 🙈</button>
+</div>
+
+<div id="popup">
+    💖 You are my forever, Mahima 🌙✨ 💖
+</div>
+
+<script>
+
+// ====== Stars Generator ======
+for(let i=0;i<150;i++){
+    const star=document.createElement("div");
+    star.classList.add("star");
+    star.style.top=Math.random()*100+"vh";
+    star.style.left=Math.random()*100+"vw";
+    document.body.appendChild(star);
+}
+
+// ====== Love Letter Typing ======
+const message = "From the moment you came into my life, everything feels brighter 🌸 You are my happiness, my peace, and my sweetest dream. Will you be my Valentine? 💕";
+let i=0;
+function typeLetter(){
+    if(i<message.length){
+        document.getElementById("letter").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeLetter,50);
+    }
+}
+typeLetter();
+
+// ====== Music Control (No Overlap) ======
+const romantic=document.getElementById("romantic");
+const noMusic=document.getElementById("noMusic");
+const noBtn=document.getElementById("no");
+
+function playRomantic(){
+    noMusic.pause();
+    noMusic.currentTime=0;
+    romantic.play().catch(()=>{
+        document.body.addEventListener("click",()=>{
+            romantic.play();
+        },{once:true});
+    });
+}
+window.onload=playRomantic;
+
+// YES
+document.getElementById("yes").onclick=function(){
+    romantic.pause();
+    romantic.currentTime=0;
+    document.getElementById("popup").style.display="flex";
+}
+
+// NO
+noBtn.onmouseover=function(){
+    romantic.pause();
+    romantic.currentTime=0;
+    noMusic.play();
+    noBtn.style.top=Math.random()*window.innerHeight+"px";
+    noBtn.style.left=Math.random()*window.innerWidth+"px";
+}
+
+</script>
+
+</body>
+</html>
