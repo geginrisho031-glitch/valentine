@@ -3,169 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Mahima 💖</title>
+<title>My Princess 💖</title>
 
 <style>
-body {
-    margin:0;
-    padding:0;
-    height:100vh;
-    background: radial-gradient(circle at top, #1a1a40, #000);
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family: 'Segoe UI', sans-serif;
-    color:white;
-    text-align:center;
+body{
+margin:0;
+padding:0;
+height:100vh;
+background:radial-gradient(circle at top,#1a1a40,#000);
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial,sans-serif;
+overflow:hidden;
+color:white;
 }
 
-/* Stars */
-.star {
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    animation: twinkle 2s infinite alternate;
-}
-@keyframes twinkle {
-    from { opacity:0.2; }
-    to { opacity:1; }
-}
-
-/* Card */
-.container {
-    background: rgba(255,255,255,0.08);
-    padding:30px;
-    border-radius:20px;
-    backdrop-filter: blur(10px);
-    box-shadow:0 0 30px rgba(255,105,180,0.5);
+/* App-style card */
+.app{
+width:90%;
+max-width:380px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+border-radius:30px;
+padding:25px;
+box-shadow:0 0 40px rgba(255,105,180,0.6);
+text-align:center;
+position:relative;
 }
 
-/* Glowing Name */
-h1 {
-    font-size:36px;
-    color:#ff99cc;
-    text-shadow: 0 0 10px #ff4da6,
-                 0 0 20px #ff4da6,
-                 0 0 40px #ff1a8c;
-}
-
-/* Love letter text */
-#letter {
-    font-size:18px;
-    margin:20px 0;
-    min-height:60px;
+/* Glowing name */
+h1{
+color:#ff99cc;
+text-shadow:0 0 10px #ff4da6,0 0 20px #ff1a8c;
 }
 
 /* Buttons */
-button {
-    padding:10px 25px;
-    border:none;
-    border-radius:25px;
-    margin:10px;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
+button{
+padding:12px 20px;
+border:none;
+border-radius:20px;
+margin:10px;
+font-size:16px;
+cursor:pointer;
+}
+#yes{background:#ff4da6;color:white;}
+#no{background:#999;position:absolute;}
+
+/* Popup */
+#popup{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(255,0,102,0.95);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-size:24px;
 }
 
-#yes {
-    background:#ff4da6;
-    color:white;
+/* Photo reveal */
+#photo{
+width:200px;
+border-radius:20px;
+box-shadow:0 0 40px #fff;
+opacity:0;
+transform:scale(0);
+transition:1.5s;
 }
-#yes:hover { transform:scale(1.1); }
-
-#no {
-    background:#999;
-    position:absolute;
+.showPhoto{
+opacity:1 !important;
+transform:scale(1) !important;
 }
 
-#popup {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(255,0,102,0.95);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    font-size:26px;
+/* Stars */
+.star{
+position:absolute;
+width:2px;height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{from{opacity:.2;}to{opacity:1;}}
+
+/* Shooting star */
+.shoot{
+position:absolute;
+width:2px;height:80px;
+background:linear-gradient(-45deg,white,transparent);
+transform:rotate(45deg);
+animation:shoot 1s linear forwards;
+}
+@keyframes shoot{
+from{transform:translate(0,0) rotate(45deg);}
+to{transform:translate(300px,300px) rotate(45deg);opacity:0;}
+}
+
+/* Petals */
+.petal{
+position:absolute;
+font-size:18px;
+animation:fall 6s linear infinite;
+}
+@keyframes fall{
+from{transform:translateY(-10vh);}
+to{transform:translateY(110vh);}
+}
+
+/* Confetti */
+.confetti{
+position:absolute;
+font-size:20px;
+animation:explode 1s ease forwards;
+}
+@keyframes explode{
+0%{transform:scale(0);}
+100%{transform:scale(2);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="romantic" src="romantic.mp3" loop></audio>
-<audio id="noMusic" src="no.mp3"></audio>
+<div id="startScreen" style="
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:black;display:flex;justify-content:center;
+align-items:center;color:white;font-size:22px;
+z-index:9999;cursor:pointer;">
+Tap To Open My Princess 💖
+</div>
 
-<div class="container">
-    <h1>Mahima 💖</h1>
-    <div id="letter"></div>
-    <button id="yes">YES 💕</button>
-    <button id="no">NO 🙈</button>
+<audio id="romantic" loop>
+<source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="noMusic">
+<source src="no.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="heartbeat" loop>
+<source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
+<audio id="proposal">
+<source src="proposal.mp3" type="audio/mpeg">
+</audio>
+
+
+<div class="app">
+<h1>Mahima 💖</h1>
+<p id="letter"></p>
+<button id="yes">YES 💕</button>
+<button id="no">NO 🙈</button>
 </div>
 
 <div id="popup">
-    💖 You are my forever, Mahima 🌙✨ 💖
+💍 Hey Princess, This is Serious Proposal 💖
+<br><br>
+<img src="photo.jpg" id="photo">
 </div>
 
 <script>
 
-// ====== Stars Generator ======
-for(let i=0;i<150;i++){
-    const star=document.createElement("div");
-    star.classList.add("star");
-    star.style.top=Math.random()*100+"vh";
-    star.style.left=Math.random()*100+"vw";
-    document.body.appendChild(star);
+// Stars
+for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.top=Math.random()*100+"vh";
+s.style.left=Math.random()*100+"vw";
+document.body.appendChild(s);
 }
 
-// ====== Love Letter Typing ======
-const message = "From the moment you came into my life, everything feels brighter 🌸 You are my happiness, my peace, and my sweetest dream. Will you be my Valentine? 💕";
+// Shooting stars
+setInterval(()=>{
+let s=document.createElement("div");
+s.className="shoot";
+s.style.top=Math.random()*50+"vh";
+s.style.left=Math.random()*50+"vw";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1000);
+},5000);
+
+// Falling petals
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.innerHTML="🌹";
+p.style.left=Math.random()*100+"vw";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),6000);
+},800);
+
+// Typing letter
+let msg="Hey Princess Mahima 🌸, Will you be My Valentine Princess? 💕";
 let i=0;
-function typeLetter(){
-    if(i<message.length){
-        document.getElementById("letter").innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typeLetter,50);
-    }
-}
-typeLetter();
+function type(){
+if(i<msg.length){
+document.getElementById("letter").innerHTML+=msg.charAt(i);
+i++;setTimeout(type,40);
+}}
+type();
 
-// ====== Music Control (No Overlap) ======
+// Music fade
 const romantic=document.getElementById("romantic");
 const noMusic=document.getElementById("noMusic");
-const noBtn=document.getElementById("no");
+const heartbeat=document.getElementById("heartbeat");
+const proposal=document.getElementById("proposal");
+proposal.volume = 1;
 
-function playRomantic(){
-    noMusic.pause();
-    noMusic.currentTime=0;
-    romantic.play().catch(()=>{
-        document.body.addEventListener("click",()=>{
-            romantic.play();
-        },{once:true});
-    });
+const noBtn=document.getElementById("no");
+const start=document.getElementById("startScreen");
+
+function fadeIn(a){a.volume=0;a.play();let v=0;
+let f=setInterval(()=>{if(v<1){v+=.05;a.volume=v;}else clearInterval(f);},200);}
+
+function fadeOut(a){let v=a.volume;
+let f=setInterval(()=>{if(v>0){v-=.05;a.volume=v;}else{a.pause();clearInterval(f);}},200);}
+
+start.onclick=function(){
+fadeIn(romantic);
+fadeIn(heartbeat);
+start.style.display="none";
 }
-window.onload=playRomantic;
 
 // YES
 document.getElementById("yes").onclick=function(){
-    romantic.pause();
-    romantic.currentTime=0;
-    document.getElementById("popup").style.display="flex";
+
+// Stop all other music
+fadeOut(romantic);
+fadeOut(heartbeat);
+noMusic.pause();
+noMusic.currentTime = 0;
+
+// Play proposal song with fade in
+fadeIn(proposal);
+
+// Disable NO button
+noBtn.onmouseover = null;
+noBtn.style.display = "none";
+
+// Show popup
+document.getElementById("popup").style.display="flex";
+
+setTimeout(()=>{
+document.getElementById("photo").classList.add("showPhoto");
+},500);
+
+createCelebration();
 }
+
+
 
 // NO
 noBtn.onmouseover=function(){
-    romantic.pause();
-    romantic.currentTime=0;
-    noMusic.play();
-    noBtn.style.top=Math.random()*window.innerHeight+"px";
-    noBtn.style.left=Math.random()*window.innerWidth+"px";
+fadeOut(romantic);
+fadeIn(noMusic);
+noBtn.style.top=Math.random()*window.innerHeight+"px";
+noBtn.style.left=Math.random()*window.innerWidth+"px";
 }
 
+// Fireworks + Confetti
+function createCelebration(){
+for(let i=0;i<80;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.innerHTML=Math.random()>0.5?"🎆":"🎉";
+c.style.top=Math.random()*100+"vh";
+c.style.left=Math.random()*100+"vw";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),1000);
+}}
 </script>
 
 </body>
