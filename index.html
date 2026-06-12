@@ -1,2 +1,361 @@
-<h1> Avolo than Mudinju Nega Propose Pana than Open agum Bye Bye! Athu vara enta iruthu no text and message illa 🙃 </h1>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Princess 💖</title>
+
+<style>
+body{
+margin:0;
+padding:0;
+height:100vh;
+background:radial-gradient(circle at top,#1a1a40,#000);
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial,sans-serif;
+overflow:hidden;
+color:white;
+touch-action:manipulation;
+}
+
+/* Floating */
+@keyframes floatCard{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-6px);}
+100%{transform:translateY(0px);}
+}
+
+/* Bounce */
+@keyframes bounce{
+0%{transform:scale(1);}
+30%{transform:scale(1.12);}
+60%{transform:scale(0.95);}
+100%{transform:scale(1.05);}
+}
+
+/* Sparkle */
+@keyframes sparkle{
+0%{box-shadow:0 0 6px rgba(255,77,166,0.4);}
+50%{box-shadow:0 0 12px rgba(255,153,204,0.5);}
+100%{box-shadow:0 0 6px rgba(255,77,166,0.4);}
+}
+
+/* Camera Zoom */
+@keyframes cameraZoom{
+0%{transform:scale(1);}
+100%{transform:scale(1.15);}
+}
+
+.zoomEffect{
+animation:cameraZoom 1.5s ease forwards;
+}
+
+/* Card */
+.app{
+width:92%;
+max-width:360px;
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(12px);
+border-radius:25px;
+padding:22px 18px;
+text-align:center;
+position:relative;
+animation:floatCard 4s ease-in-out infinite;
+border:1px solid rgba(255,105,180,0.25);
+box-shadow:0 0 12px rgba(255,105,180,0.25);
+}
+
+/* Soft Glow Border */
+.app::before{
+content:"";
+position:absolute;
+inset:-2px;
+border-radius:25px;
+background:linear-gradient(45deg,#ff4da6,#ff99cc,#ff4da6);
+z-index:-1;
+filter:blur(4px);
+opacity:0.4;
+}
+
+h1{
+font-size:28px;
+color:#ff99cc;
+text-shadow:0 0 6px rgba(255,77,166,0.6);
+}
+
+/* Buttons */
+.buttons{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:15px;
+margin-top:20px;
+position:relative;
+flex-wrap:wrap;
+}
+
+button{
+padding:14px 20px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s ease;
+}
+
+#yes{
+background:#ff4da6;
+color:white;
+width:130px;
+transform:scale(1.05);
+animation:sparkle 2.5s infinite alternate;
+}
+
+#no{
+background:#999;
+width:110px;
+position:relative;
+}
+
+/* Popup */
+#popup{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(255,0,102,0.95);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-size:22px;
+text-align:center;
+}
+
+/* Photo */
+#photo{
+width:200px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(255,255,255,0.7);
+opacity:0;
+transform:scale(0);
+transition:1.5s;
+}
+.showPhoto{
+opacity:1 !important;
+transform:scale(1) !important;
+}
+
+/* Stars */
+.star{
+position:absolute;
+width:2px;height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{from{opacity:.3;}to{opacity:1;}}
+
+/* Shooting Star */
+.shoot{
+position:absolute;
+width:2px;height:80px;
+background:linear-gradient(-45deg,white,transparent);
+transform:rotate(45deg);
+animation:shoot 1s linear forwards;
+}
+@keyframes shoot{
+from{transform:translate(0,0) rotate(45deg);}
+to{transform:translate(300px,300px) rotate(45deg);opacity:0;}
+}
+
+/* Petals */
+.petal{
+position:absolute;
+font-size:18px;
+animation:fall 6s linear infinite;
+}
+@keyframes fall{
+from{transform:translateY(-10vh);}
+to{transform:translateY(110vh);}
+}
+
+/* Confetti */
+.confetti{
+position:absolute;
+font-size:20px;
+animation:explode 2s ease forwards;
+}
+@keyframes explode{
+0%{transform:scale(0);}
+100%{transform:scale(2);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen" style="
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:black;display:flex;justify-content:center;
+align-items:center;color:white;font-size:22px;
+z-index:9999;cursor:pointer;">
+Tap To Open My Princess 💖
+</div>
+
+<audio id="romantic" loop>
+<source src="romantic.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="noMusic">
+<source src="no.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="heartbeat" loop>
+<source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="proposal">
+<source src="proposal.mp3" type="audio/mpeg">
+</audio>
+
+<div id="mainScene">
+<div class="app">
+<h1>Mahima 💖</h1>
+<p>Hey Princess Mahima 🌸, Will you be My Valentine Princess? 💕</p>
+
+<div class="buttons">
+<button id="yes">YES 💕</button>
+<button id="no">NO 🙈</button>
+</div>
+</div>
+</div>
+
+<div id="popup">
+💍 Hey Princess, This is Serious Proposal 💖
+<br><br>
+<img src="photo.jpg" id="photo">
+</div>
+
+<script>
+
+// Stars
+for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.top=Math.random()*100+"vh";
+s.style.left=Math.random()*100+"vw";
+document.body.appendChild(s);
+}
+
+// Shooting Stars
+setInterval(()=>{
+let s=document.createElement("div");
+s.className="shoot";
+s.style.top=Math.random()*50+"vh";
+s.style.left=Math.random()*50+"vw";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1000);
+},5000);
+
+// Petals
+setInterval(()=>{
+let p=document.createElement("div");
+p.className="petal";
+p.innerHTML="🌹";
+p.style.left=Math.random()*100+"vw";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),6000);
+},1200);
+
+// Music
+const romantic=document.getElementById("romantic");
+const noMusic=document.getElementById("noMusic");
+const heartbeat=document.getElementById("heartbeat");
+const proposal=document.getElementById("proposal");
+const noBtn=document.getElementById("no");
+const start=document.getElementById("startScreen");
+
+function fadeIn(a){a.volume=0;a.play();let v=0;
+let f=setInterval(()=>{if(v<1){v+=.05;a.volume=v;}else clearInterval(f);},200);}
+
+function fadeOut(a){let v=a.volume;
+let f=setInterval(()=>{if(v>0){v-=.05;a.volume=v;}else{a.pause();clearInterval(f);}},200);}
+
+start.onclick=function(){
+fadeIn(romantic);
+fadeIn(heartbeat);
+start.style.display="none";
+}
+
+// YES with Cinematic Zoom
+document.getElementById("yes").onclick=function(){
+
+if(navigator.vibrate){navigator.vibrate([200,100,200]);}
+
+this.style.animation="bounce 0.6s ease";
+
+// CAMERA ZOOM
+document.getElementById("mainScene").classList.add("zoomEffect");
+
+fadeOut(romantic);
+fadeOut(heartbeat);
+noMusic.pause();
+fadeIn(proposal);
+
+noBtn.style.display="none";
+
+setTimeout(()=>{
+document.getElementById("popup").style.display="flex";
+document.getElementById("photo").classList.add("showPhoto");
+createCelebration();
+},1200);
+}
+
+// NO SAFE MOVE
+function moveNoButton(){
+fadeOut(romantic);
+fadeIn(noMusic);
+
+noBtn.style.position="absolute";
+
+let padding=20;
+let maxX=window.innerWidth-noBtn.offsetWidth-padding;
+let maxY=window.innerHeight-noBtn.offsetHeight-padding;
+
+let randomX=Math.max(padding,Math.random()*maxX);
+let randomY=Math.max(padding,Math.random()*maxY);
+
+noBtn.style.left=randomX+"px";
+noBtn.style.top=randomY+"px";
+}
+
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("touchstart", function(e){
+e.preventDefault();
+moveNoButton();
+});
+
+// Confetti
+function createCelebration(){
+let duration=4000;
+let end=Date.now()+duration;
+
+let interval=setInterval(function(){
+if(Date.now()>end){clearInterval(interval);return;}
+
+let c=document.createElement("div");
+c.className="confetti";
+c.innerHTML=Math.random()>0.5?"🎆":"🎉";
+c.style.top=Math.random()*100+"vh";
+c.style.left=Math.random()*100+"vw";
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),2000);
+},100);
+}
+</script>
+
+</body>
+</html>
 
